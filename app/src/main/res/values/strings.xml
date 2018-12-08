@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Forecast</string>
+
+
+    <!-- navigation menu -->
+    <string name="nav_menu_today">Today</string>
+    <string name="nav_menu_week">7 days</string>
+    <string name="nav_menu_settings">Settings</string>
 </resources>
