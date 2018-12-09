@@ -1,6 +1,5 @@
-package com.example.forecast.data
+package com.example.forecast.data.network
 
-import com.example.forecast.data.network.ConnectivityInterceptor
 import com.example.forecast.data.network.responces.CurrentWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -31,7 +30,7 @@ interface ApixuWeatherApiService {
     companion object {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
-        ): ApixuWeatherApiService{
+        ): ApixuWeatherApiService {
             val requestInterceptor = Interceptor { chain ->
 
                 val url = chain.request()

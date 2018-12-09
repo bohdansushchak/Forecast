@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.Observer
 
 import com.example.forecast.R
-import com.example.forecast.data.ApixuWeatherApiService
+import com.example.forecast.data.network.ApixuWeatherApiService
 import com.example.forecast.data.network.ConectivityInterceptorImpl
-import com.example.forecast.data.network.ConnectivityInterceptor
-import com.example.forecast.internal.NoConnectivityException
+import com.example.forecast.data.network.WeatherNetworkDataSourceImpl
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,21 +38,16 @@ class CurrentWeatherFragment : Fragment() {
 
         val apiService = ApixuWeatherApiService(ConectivityInterceptorImpl(context!!))
 
+        val weatherNetwordDataSource = WeatherNetworkDataSourceImpl(apiService)
+
+        weatherNetwordDataSource.downloadedCurrentWeather.observe(this, Observer {
+            textView.text = it.toString()
+        })
+
         GlobalScope.launch(Dispatchers.Main) {
 
-            try {
-                val currentWeatherResponce = apiService.getCurrentWeather("Rzeszow").await()
-
-                textView.text = currentWeatherResponce.toString()
-            }
-            catch (exception: NoConnectivityException){
-
-                Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
-            }
-
+            weatherNetwordDataSource.fetchCurrentWeather("London", "en")
         }
-
-
 
     }
 
