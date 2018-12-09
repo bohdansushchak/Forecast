@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 
 import com.example.forecast.R
 import com.example.forecast.data.network.ApixuWeatherApiService
-import com.example.forecast.data.network.ConectivityInterceptorImpl
+import com.example.forecast.data.network.ConnectivityInterceptorImpl
 import com.example.forecast.data.network.WeatherNetworkDataSourceImpl
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +36,7 @@ class CurrentWeatherFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
 
-        val apiService = ApixuWeatherApiService(ConectivityInterceptorImpl(context!!))
+        val apiService = ApixuWeatherApiService(ConnectivityInterceptorImpl(context!!))
 
         val weatherNetwordDataSource = WeatherNetworkDataSourceImpl(apiService)
 
@@ -46,7 +46,7 @@ class CurrentWeatherFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
 
-            weatherNetwordDataSource.fetchCurrentWeather("London", "en")
+            weatherNetwordDataSource.fetchCurrentWeather("Lviv", "uk")
         }
 
     }

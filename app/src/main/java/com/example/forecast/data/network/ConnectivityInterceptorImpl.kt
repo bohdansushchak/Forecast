@@ -6,7 +6,7 @@ import com.example.forecast.internal.NoConnectivityException
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ConectivityInterceptorImpl(
+class ConnectivityInterceptorImpl(
     context: Context
 ) : ConnectivityInterceptor {
 
