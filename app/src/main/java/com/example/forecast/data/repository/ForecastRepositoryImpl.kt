@@ -45,7 +45,8 @@ class ForecastRepositoryImpl(
     private suspend fun fetchCurrentWeather() {
         weatherNetwordDataSource.fetchCurrentWeather(
             "Rzeszow",
-            Locale.getDefault().language
+            //Locale.getDefault().language
+        "en"
         )
     }
 
