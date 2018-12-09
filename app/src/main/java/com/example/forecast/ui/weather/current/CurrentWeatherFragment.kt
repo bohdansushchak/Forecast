@@ -6,14 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import com.example.forecast.R
 import com.example.forecast.data.ApixuWeatherApiService
+import com.example.forecast.data.network.ConectivityInterceptorImpl
+import com.example.forecast.data.network.ConnectivityInterceptor
+import com.example.forecast.internal.NoConnectivityException
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
 class CurrentWeatherFragment : Fragment() {
 
@@ -33,14 +36,21 @@ class CurrentWeatherFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
-        // TODO: Use the ViewModel
 
-        val apiService = ApixuWeatherApiService()
+        val apiService = ApixuWeatherApiService(ConectivityInterceptorImpl(context!!))
 
         GlobalScope.launch(Dispatchers.Main) {
-            val currentWeatherResponce = apiService.getCurrentWeather("Rzeszow").await()
 
-            textView.text = currentWeatherResponce.toString()
+            try {
+                val currentWeatherResponce = apiService.getCurrentWeather("Rzeszow").await()
+
+                textView.text = currentWeatherResponce.toString()
+            }
+            catch (exception: NoConnectivityException){
+
+                Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
 

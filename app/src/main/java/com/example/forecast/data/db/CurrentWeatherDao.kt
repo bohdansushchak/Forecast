@@ -9,7 +9,6 @@ import com.example.forecast.data.db.entity.CURRENT_WEATHER_ID
 import com.example.forecast.data.db.entity.CurrentWeatherEntry
 import com.example.forecast.data.db.unitlocalized.ImperialCurrentWeatherEntry
 import com.example.forecast.data.db.unitlocalized.MetricCurrentWeatherEntry
-import com.example.forecast.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry
 
 @Dao
 interface CurrentWeatherDao {
