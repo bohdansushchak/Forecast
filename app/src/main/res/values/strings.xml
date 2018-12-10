@@ -6,4 +6,14 @@
     <string name="nav_menu_today">Today</string>
     <string name="nav_menu_week">7 days</string>
     <string name="nav_menu_settings">Settings</string>
+
+
+    <!-- Settings activity -->
+    <string name="pref_title_use_device_loc">Use device location</string>
+    <string name="pref_summary_use_device_loc">Allow the app to use location</string>
+    <string name="pref_title_location">Location</string>
+    <string name="pref_summary_location">The location for witch the weather is displayed</string>
+    <string name="pref_cat_location">Weather Location</string>
+    <string name="pref_cat_units">Units</string>
+    <string name="pref_title_unit_system">Unit system</string>
 </resources>

@@ -79,7 +79,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
     private fun updatePrecipitation(precipitationVolume: Double) {
         val unitAbbreviation = chooseLocalizedUnitAbbreviation("mm", "in")
-        textView_precipitation.text = "Preciptiation: $precipitationVolume $unitAbbreviation"
+        textView_precipitation.text = "Precipitation: $precipitationVolume $unitAbbreviation"
     }
 
     private fun chooseLocalizedUnitAbbreviation(metric: String, imperial: String): String {
