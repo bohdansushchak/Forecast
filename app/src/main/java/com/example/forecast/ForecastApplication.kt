@@ -1,6 +1,7 @@
 package com.example.forecast
 
 import android.app.Application
+import android.content.Context
 import android.preference.PreferenceManager
 import com.example.forecast.data.db.ForecastDatabase
 import com.example.forecast.data.network.*
@@ -11,6 +12,7 @@ import com.example.forecast.data.provider.UnitProviderImpl
 import com.example.forecast.data.repository.ForecastRepository
 import com.example.forecast.data.repository.ForecastRepositoryImpl
 import com.example.forecast.ui.weather.current.CurrentWeatherViewModelFactory
+import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -30,7 +32,8 @@ class ForecastApplication: Application(), KodeinAware {
         bind<ConnectivityInterceptor>() with singleton{ ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { ApixuWeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
-        bind<LocationProvider>() with singleton { LocationProviderImpl() }
+        bind() from provider { LocationServices.getFusedLocationProviderClient( instance<Context>()) }
+        bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
         bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton {UnitProviderImpl(instance())}
         bind() from provider {CurrentWeatherViewModelFactory(instance(), instance())}
