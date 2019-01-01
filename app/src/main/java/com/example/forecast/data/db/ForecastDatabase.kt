@@ -13,6 +13,7 @@ import com.example.forecast.data.db.entity.WeatherLocation
 )
 
 abstract class ForecastDatabase : RoomDatabase() {
+    //abstract fun futureWeaterDao(): FutureWeatherDao
     abstract fun currentWeatherDao(): CurrentWeatherDao
     abstract fun weatherLocationDao(): WeatherLocationDao
 

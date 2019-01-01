@@ -2,7 +2,7 @@ package com.example.forecast.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.forecast.data.db.entity.WeatherLocation
-import com.example.forecast.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry
+import com.example.forecast.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 
 interface ForecastRepository {
 

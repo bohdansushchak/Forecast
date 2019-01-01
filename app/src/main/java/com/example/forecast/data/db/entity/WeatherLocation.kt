@@ -39,10 +39,10 @@ data class WeatherLocation(
     var id: Int = 0
 
     val zonedDateTime: ZonedDateTime
-    @RequiresApi(Build.VERSION_CODES.O)
-    get(){
-        val instant = Instant.ofEpochSecond(localtimeEpoch)
-        val zonedId = ZoneId.of(tzId)
-        return  ZonedDateTime.ofInstant(instant, zonedId)
-    }
+        @RequiresApi(Build.VERSION_CODES.O)
+        get() {
+            val instant = Instant.ofEpochSecond(localtimeEpoch)
+            val zonedId = ZoneId.of(tzId)
+            return ZonedDateTime.ofInstant(instant, zonedId)
+        }
 }

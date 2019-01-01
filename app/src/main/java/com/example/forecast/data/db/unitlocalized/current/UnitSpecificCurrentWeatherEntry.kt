@@ -1,4 +1,4 @@
-package com.example.forecast.data.db.unitlocalized
+package com.example.forecast.data.db.unitlocalized.current
 
 interface UnitSpecificCurrentWeatherEntry {
     val temperature: Double
