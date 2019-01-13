@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class FutureWeatherResponse(
     @SerializedName("forecast")
-    val forecastDaysContainer: ForecastDaysContainer,
+    val futureWeatherEntries: ForecastDaysContainer,
     @SerializedName("location")
     val location: WeatherLocation
 )

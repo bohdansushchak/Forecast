@@ -10,9 +10,9 @@ import com.example.forecast.data.db.entity.CurrentWeatherEntry
 import com.example.forecast.data.db.unitlocalized.current.ImperialCurrentWeatherEntry
 import com.example.forecast.data.db.unitlocalized.current.MetricCurrentWeatherEntry
 
+
 @Dao
 interface CurrentWeatherDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(weatherEntry: CurrentWeatherEntry)
 

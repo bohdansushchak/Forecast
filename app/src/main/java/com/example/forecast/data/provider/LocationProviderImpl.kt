@@ -19,8 +19,7 @@ const val CUSTOM_LOCATION = "CUSTOM_LOCATION"
 class LocationProviderImpl(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
     context: Context
-) : PreferenceProvider(context),
-    LocationProvider {
+) : PreferenceProvider(context), LocationProvider {
 
     private val appContext = context.applicationContext
 
@@ -35,12 +34,12 @@ class LocationProviderImpl(
     }
 
     override suspend fun getPreferredLocationString(): String {
-        if(isUsingDeviceLocation()) {
+        if (isUsingDeviceLocation()) {
             try {
                 val deviceLocation = getLastDeviceLocation().await()
                     ?: return "${getCustomLocationName()}"
-                return "${deviceLocation.latitude}, ${deviceLocation.longitude}"
-            } catch (e: LocationPermissionNotGrantedException){
+                return "${deviceLocation.latitude},${deviceLocation.longitude}"
+            } catch (e: LocationPermissionNotGrantedException) {
                 return "${getCustomLocationName()}"
             }
         }
@@ -55,13 +54,26 @@ class LocationProviderImpl(
         val deviceLocation = getLastDeviceLocation().await()
             ?: return false
 
+        // Comparing doubles cannot be done with "=="
         val comparisonThreshold = 0.03
         return Math.abs(deviceLocation.latitude - lastWeatherLocation.lat) > comparisonThreshold &&
                 Math.abs(deviceLocation.longitude - lastWeatherLocation.lon) > comparisonThreshold
     }
 
+    private fun hasCustomLocationChanged(lastWeatherLocation: WeatherLocation): Boolean {
+        if (!isUsingDeviceLocation()) {
+            val customLocationName = getCustomLocationName()
+            return customLocationName != lastWeatherLocation.name
+        }
+        return false
+    }
+
     private fun isUsingDeviceLocation(): Boolean {
         return preferences.getBoolean(USE_DEVICE_LOCATION, true)
+    }
+
+    private fun getCustomLocationName(): String? {
+        return preferences.getString(CUSTOM_LOCATION, null)
     }
 
     @SuppressLint("MissingPermission")
@@ -73,18 +85,7 @@ class LocationProviderImpl(
     }
 
     private fun hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            appContext,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun hasCustomLocationChanged(lastWeatherLocation: WeatherLocation): Boolean {
-        val customLocationName = getCustomLocationName()
-        return customLocationName != lastWeatherLocation.name
-    }
-
-    private fun getCustomLocationName(): String {
-        return preferences.getString(CUSTOM_LOCATION, null)
+        return ContextCompat.checkSelfPermission(appContext,
+            Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 }

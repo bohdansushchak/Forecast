@@ -10,6 +10,7 @@ import com.example.forecast.data.db.unitlocalized.future.ImperialSimpleFutureWea
 import com.example.forecast.data.db.unitlocalized.future.MetricSimpleFutureWeatherEntry
 import org.threeten.bp.LocalDate
 
+
 @Dao
 interface FutureWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
