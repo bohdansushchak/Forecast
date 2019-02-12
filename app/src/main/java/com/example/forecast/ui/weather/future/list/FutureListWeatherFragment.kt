@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.forecast.R
-import com.example.forecast.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.example.forecast.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.forecast.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder

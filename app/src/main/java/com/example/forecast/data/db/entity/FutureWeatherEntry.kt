@@ -10,6 +10,7 @@ data class FutureWeatherEntry(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val date: String,
+
     @Embedded
     val day: Day
 )

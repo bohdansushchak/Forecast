@@ -9,7 +9,6 @@ import org.threeten.bp.Instant
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 
-
 const val WEATHER_LOCATION_ID = 0
 
 @Entity(tableName = "weather_location")
