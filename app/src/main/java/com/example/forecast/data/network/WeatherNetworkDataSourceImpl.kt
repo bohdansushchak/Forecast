@@ -19,13 +19,18 @@ class WeatherNetworkDataSourceImpl(
 
     override suspend fun fetchCurrentWeather(location: String, languageCode: String) {
         try {
-            val fetchedCurrentWeather = apixuWeatherApiService
+            val fetchedCurrentWeatherDeff = apixuWeatherApiService
                 .getCurrentWeather(location, languageCode)
-                .await()
+
+            //TODO Fix this
+
+            val fetchedCurrentWeather = fetchedCurrentWeatherDeff.await()
+
             _downloadedCurrentWeather.postValue(fetchedCurrentWeather)
-        }
-        catch (e: NoConnectivityException) {
+        } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)
+        } catch (e: Exception) {
+            Log.e("Bad request", e.toString())
         }
     }
 
@@ -42,8 +47,7 @@ class WeatherNetworkDataSourceImpl(
                 .getFutureWeather(location, FORECAST_DAYS_COUNT, languageCode)
                 .await()
             _downloadedFutureWeather.postValue(fetchedFutureWeather)
-        }
-        catch (e: NoConnectivityException) {
+        } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)
         }
     }
